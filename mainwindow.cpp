@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setCentralWidget(ui->plainTextEdit);
+    this->setCentralWidget(ui->textEdit);
 }
 
 MainWindow::~MainWindow()
@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionNew_triggered()
 {
     currentFile.clear();
-    ui->plainTextEdit->setPlainText(QString());
+    ui->textEdit->setPlainText(QString());
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -36,7 +36,7 @@ void MainWindow::on_actionOpen_triggered()
         setWindowTitle(currentFile);
         QTextStream in(&file);
         QString text = in.readAll();
-        ui->plainTextEdit->setPlainText(text);
+        ui->textEdit->setPlainText(text);
         file.close();
 
 }
@@ -52,7 +52,7 @@ void MainWindow::on_actionSave_as_triggered()
     }
     setWindowTitle(currentFile);
     QTextStream out(&file);
-    QString text = ui->plainTextEdit->toPlainText();
+    QString text = ui->textEdit->toPlainText();
     out<<text;
     file.close();
 }
@@ -60,31 +60,31 @@ void MainWindow::on_actionSave_as_triggered()
 
 void MainWindow::on_actionCopy_triggered()
 {
-    ui->plainTextEdit->copy();
+    ui->textEdit->copy();
 }
 
 
 void MainWindow::on_actionPaste_triggered()
 {
-    ui->plainTextEdit->paste();
+    ui->textEdit->paste();
 }
 
 
 void MainWindow::on_actionCut_triggered()
 {
-    ui->plainTextEdit->cut();
+    ui->textEdit->cut();
 }
 
 
 void MainWindow::on_actionUndo_triggered()
 {
-    ui->plainTextEdit->undo();
+    ui->textEdit->undo();
 }
 
 
 void MainWindow::on_actionRedo_triggered()
 {
-    ui->plainTextEdit->redo();
+    ui->textEdit->redo();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -100,8 +100,19 @@ void MainWindow::on_actionSave_triggered()
         return;
     }
     QTextStream out(&file);
-    QString text = ui->plainTextEdit->toPlainText();
+    QString text = ui->textEdit->toPlainText();
     out<<text;
     file.close();
 
+}
+
+
+void MainWindow::on_actionDark_triggered()
+{
+    ui->textEdit->setStyleSheet("color:white;background-color: rgb(46, 52, 54);");
+}
+
+void MainWindow::on_actionLight_triggered()
+{
+    ui->textEdit->setStyleSheet("color:black;background-color:white;");
 }
